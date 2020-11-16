@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block nav %}
+    <div class="site-header">
+        <div class="container">
+            <div class="row">
+                <nav class="navbar navbar-default navbar-static-top">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#main-menu">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand" href="/">e-Cars</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main-menu">
+                        <ul class="nav navbar-nav navbar-right">
+
+                            {% set page = app.request.attributes.get('_route') %}
+
+                            {% if page=='main' %}active{% endif %}
+
+                            <li><a href="{{ path('index') }}" class="{{ page=='index' ? 'active' :  ""}}">Home</a></li>
+                            <li><a href="{{ path('promotion') }}" class="{{ page=='promotion' ? 'active' :  ""}}" >Promotion</a></li>
+                            <li><a href="{{ path('productos') }}" class="{{ page=='productos' ? 'active' :  ""}}">Products</a></li>
+                            <li><a href="{{ path('contacta') }}" class="{{ page=='contacta' ? 'active' :  ""}}" >Contact</a></li>
+                            <li><a href="{{ path('nosotros') }}" class="{{ page=='nosotros' ? 'active' :  ""}}">Nosotros</a></li>
+                            <li><a href="{{ path('servicios') }}" class="{{ page=='servicios' ? 'active' :  ""}}">Servicios</a></li>
+                            <li><a href="{{ path('login') }}" class="{{ page=='login' ? 'active' :  ""}}">Usuario {{ name }} Conectado</a></li>
+                        </ul>
+                    </div>
+                </nav>         
+            </div>
+        </div>
+    </div> <!-- .site-header -->
+    {% endblock %}
+    {% block content %}
+
+        
+    {% endblock %}
+
+    <div class="fourth-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>NEW PRODUCT PROMOTION ?</h2>
+                    <a href="contact.html">(BE THERE RIGHT NOW)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block footer %}
+        <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="social">
+                        <li class="twitter"><a href="#" class="fa fa-twitter"></a></li>
+                        <li class="facebook"><a href="#" class="fa fa-facebook"></a></li>
+                        <li class="rss"><a href="#" class="fa fa-rss"></a></li>
+                        <li class="linkedin"><a href="#" class="fa fa-linkedin"></a></li>
+                    </ul>
+                    <p>Copyright &copy; 2084 Company Name</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> 
+
+    <div class="page-h">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>Products</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="filter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="filter-controls controls">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="filter-controls controls">
+                        <li class="filter active" data-filter="mix">All</li>
+                        <li class="filter" data-filter="category-1">Premium</li>
+                        <li class="filter" data-filter="category-2">Medium</li>
+                        <li class="filter" data-filter="category-3">Cheap</li>
+                    </ul><br>
+                    {% set currentD = app.request.attributes.get("i") %}
+                    <ul class="filter-controls controls">
+                        <li class="filter active" data-filter="mix">
+                        <a href="{{ path('productos',{i : '1'})}}" class"tm-paging-link{{ currentD=='1' ? 'active' : '' }}">Electricos</a></li>
+                        <a href="{{ path('productos',{i : '2'})}}" class"tm-paging-link{{ currentD=='2' ? 'active' : '' }}">Hibridos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="products">
+        <div class="container">
+            <div class="row">
+                <div id="Grid">
+                <div class="mix category-1 col-md-3 col-sm-6">
+                    {% set lowerLimit = (currentPage - 1) * itemsPerPage %}
+                    {% set upperLimit = currentPage * itemsPerPage + 1 %}
+                    {% for i in data %}
+                        {% if loop.index > lowerLimit and loop.index < upperLimit %}
+                    <div class="thumb-p">
+                        <img src="{{ asset(i.getImagen(), 'images')}}" alt="">
+                        <div class="overlay-p">
+                            <a href="{{ asset(i.getImagen(), 'images')}}" data-rel="lightbox"><i class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="content-p">
+                        <h4>{{ i.getNombre() }}</h4>
+                        <span>{{ i.getDescripcion() }}</span>
+                        <br>
+                        <span>{{ i.getPrecio() }}</span>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    {% set lastpage = (((data|length)/itemsPerPage)|round(0,'ceil')) %}
+    {% set reminder = ((((data|length)/itemsPerPage)|round(0,'ceil'))*itemsPerPage-(data|length)) %}
+    {% if lastpage == currentPage and reminder != 0 %}
+        
+       
+  
+    {% endif %}
+
+     <nav>
+        <ul>
+            {% for paginator in 1..lastpage %}
+            <li><a href="{{  path('productos', { i : currentD, currentPage : paginator}) }}" 
+            "{{ currentPage == paginator ? ' active' :  '' }}">{{paginator}}</a></li>
+            {% endfor %}
+        </ul>
+        <br>
+        <br>
+        <br>
+    </nav>
+    
+
+    <script src="/js/vendor/jquery-1.10.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins.js"></script>
+    <script src="/js/main.js"></script>    
+
+    {% endblock %}
